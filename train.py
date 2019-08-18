@@ -73,7 +73,7 @@ def train():
     print('Fragments num: %d' % text_length)
     text_to_int = tokenizer.word_index
     int_to_text = tokenizer.index_word
-    vocab_size = len(text_to_int)
+    vocab_size = len(text_to_int) + 1
     print('Vocabulary size: %d' % vocab_size)
 
     text_seq_dataset = tf.data.Dataset.from_tensor_slices(text_seq)
