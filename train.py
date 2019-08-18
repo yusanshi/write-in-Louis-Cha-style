@@ -15,7 +15,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 from tensorflow import keras
 from tensorflow.keras import layers
 from collections import Counter
-from config import MODEL_PATH, DATA_NUM, SEQ_LENGTH, EPOCHS, BATCH_SIZE, EMBEDDING_DIM, RNN_UNITS, LEARNING_RATE
+from config import MODEL_PATH, DATA_NUM, SEQ_LENGTH, EPOCHS, BATCH_SIZE, EMBEDDING_DIM, RNN_UNITS, LEARNING_RATE, CHECKPOINT_PATH
 
 
 def build_model(vocab_size, embedding_dim, rnn_units, batch_size):
@@ -103,7 +103,13 @@ def train():
     model.compile(optimizer=keras.optimizers.Adam(
         learning_rate=LEARNING_RATE), loss=loss)
 
-    model.fit(dataset, epochs=EPOCHS)
+    checkpoint_prefix = os.path.join(CHECKPOINT_PATH, "ckpt_{epoch}")
+
+    checkpoint_callback = keras.callbacks.ModelCheckpoint(
+        filepath=checkpoint_prefix,
+        save_weights_only=True)
+
+    model.fit(dataset, epochs=EPOCHS, callbacks=[checkpoint_callback])
 
     # model.save(os.path.join(MODEL_PATH, 'model.h5'))
 
