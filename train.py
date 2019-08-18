@@ -35,7 +35,7 @@ def loss(labels, logits):
     return keras.losses.sparse_categorical_crossentropy(labels, logits, from_logits=True)
 
 
-def train():
+def train(with_checkpoint):
 
     # Prepare data
     path_to_zip = keras.utils.get_file(
@@ -109,9 +109,10 @@ def train():
         filepath=checkpoint_prefix,
         save_weights_only=True)
 
-    model.fit(dataset, epochs=EPOCHS, callbacks=[checkpoint_callback])
-
-    # model.save(os.path.join(MODEL_PATH, 'model.h5'))
+    if with_checkpoint:
+        model.fit(dataset, epochs=EPOCHS, callbacks=[checkpoint_callback])
+    else:
+        model.fit(dataset, epochs=EPOCHS)
 
     def save_model(variables, models):
         for k, v in variables.items():
@@ -119,7 +120,7 @@ def train():
                 pickle.dump(v, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
         for k, v in models.items():
-            v.save_weights(os.path.join(MODEL_PATH, k+'.ckpt'))
+            v.save_weights(os.path.join(MODEL_PATH, k))
 
         print('Model saved in %s.' % MODEL_PATH)
 
@@ -136,4 +137,4 @@ def train():
 
 
 if __name__ == '__main__':
-    train()
+    train(False)
