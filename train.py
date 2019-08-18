@@ -20,7 +20,7 @@ from config import MODEL_PATH, DATA_NUM, SEQ_LENGTH, EPOCHS, BATCH_SIZE, EMBEDDI
 
 def build_model(vocab_size, embedding_dim, rnn_units, batch_size):
     model = tf.keras.Sequential([
-        layers.Embedding(vocab_size, embedding_dim,
+        layers.Embedding(vocab_size + 1, embedding_dim,
                          batch_input_shape=[batch_size, None]),
         layers.LSTM(rnn_units,
                     return_sequences=True,
@@ -73,7 +73,7 @@ def train():
     print('Fragments num: %d' % text_length)
     text_to_int = tokenizer.word_index
     int_to_text = tokenizer.index_word
-    vocab_size = len(text_to_int) + 1
+    vocab_size = len(text_to_int)
     print('Vocabulary size: %d' % vocab_size)
 
     text_seq_dataset = tf.data.Dataset.from_tensor_slices(text_seq)
