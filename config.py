@@ -1,0 +1,9 @@
+MODEL_PATH = 'saved_model'
+DATA_NUM = 500
+SEQ_LENGTH = 100
+EPOCHS = 50
+BATCH_SIZE = 64
+EMBEDDING_DIM = 256
+RNN_UNITS = 1024
+LEARNING_RATE = 0.001
+TEMPERATURE = 0.6  # bigger value means bigger randomness, and vice versa
