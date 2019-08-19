@@ -1,8 +1,8 @@
 MODEL_PATH = 'saved_model'
-CHECKPOINT_PATH = 'checkpoint'
-DATA_NUM = 500  # None for all data
+LOG_PATH = 'log'
+DATA_NUM = 50000  # None for all data
 SEQ_LENGTH = 100
-EPOCHS = 10
+EPOCHS = 20
 BATCH_SIZE = 64
 EMBEDDING_DIM = 512
 RNN_UNITS = 1024

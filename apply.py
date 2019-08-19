@@ -4,10 +4,10 @@ import pickle
 import tensorflow as tf
 from tensorflow import keras
 from train import build_model
-from config import MODEL_PATH, EMBEDDING_DIM, RNN_UNITS, TEMPERATURE, CHECKPOINT_PATH
+from config import MODEL_PATH, EMBEDDING_DIM, RNN_UNITS, TEMPERATURE
 
 
-def apply(beginning, num_of_chars, from_checkpoint):
+def apply(beginning, num_of_chars):
     # load model
 
     # model = keras.models.load_model(os.path.join(MODEL_PATH, 'model.h5'))
@@ -22,10 +22,9 @@ def apply(beginning, num_of_chars, from_checkpoint):
                         embedding_dim=EMBEDDING_DIM,
                         rnn_units=RNN_UNITS,
                         batch_size=1)
-    if from_checkpoint:
-        model.load_weights(tf.train.latest_checkpoint(CHECKPOINT_PATH))
-    else:
-        model.load_weights(os.path.join(MODEL_PATH, 'model'))
+
+    model.load_weights(os.path.join(MODEL_PATH, 'model'))
+    
     print('Load model successfully.')
 
     input_seq_jieba = [l for l in list(jieba.cut(beginning)) if l != ' ']

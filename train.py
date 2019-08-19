@@ -10,12 +10,13 @@ import jieba
 import pprint
 import pickle
 import itertools
+import datetime
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 
 from tensorflow import keras
 from tensorflow.keras import layers
 from collections import Counter
-from config import MODEL_PATH, DATA_NUM, SEQ_LENGTH, EPOCHS, BATCH_SIZE, EMBEDDING_DIM, RNN_UNITS, LEARNING_RATE, CHECKPOINT_PATH
+from config import MODEL_PATH, DATA_NUM, SEQ_LENGTH, EPOCHS, BATCH_SIZE, EMBEDDING_DIM, RNN_UNITS, LEARNING_RATE, LOG_PATH
 
 
 def build_model(vocab_size, embedding_dim, rnn_units, batch_size):
@@ -35,7 +36,7 @@ def loss(labels, logits):
     return keras.losses.sparse_categorical_crossentropy(labels, logits, from_logits=True)
 
 
-def train(with_checkpoint):
+def train():
 
     # Prepare data
     path_to_zip = keras.utils.get_file(
@@ -103,16 +104,12 @@ def train(with_checkpoint):
     model.compile(optimizer=keras.optimizers.Adam(
         learning_rate=LEARNING_RATE), loss=loss)
 
-    checkpoint_prefix = os.path.join(CHECKPOINT_PATH, "ckpt_{epoch}")
+    logdir = os.path.join(
+        LOG_PATH, datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
+    tensorboard_callback = keras.callbacks.TensorBoard(
+        log_dir=logdir, histogram_freq=1)
 
-    checkpoint_callback = keras.callbacks.ModelCheckpoint(
-        filepath=checkpoint_prefix,
-        save_weights_only=True)
-
-    if with_checkpoint:
-        model.fit(dataset, epochs=EPOCHS, callbacks=[checkpoint_callback])
-    else:
-        model.fit(dataset, epochs=EPOCHS)
+    model.fit(dataset, epochs=EPOCHS, callbacks=[tensorboard_callback])
 
     def save_model(variables, models):
         for k, v in variables.items():
