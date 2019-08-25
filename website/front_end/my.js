@@ -10,9 +10,9 @@ $(function () {
         var lengthInt = parseInt(length);
         var temperatureFloat = parseFloat(temperature);
         if (begining.length == 0 || begining.length > 50) {
-            alert("开头长度有误！");
-        } else if (isNaN(lengthInt) || lengthInt <= 0 || lengthInt > 1000) {
-            alert("字数有误！");
+            alert("开头长度有误！（1 - 50）");
+        } else if (isNaN(lengthInt) || lengthInt <= 0 || lengthInt > 2000) {
+            alert("字数有误！（1 - 2000）");
         } else if (isNaN(temperatureFloat) || temperatureFloat <= 0 || temperatureFloat > 1) {
             alert("温度值有误！");
         } else {

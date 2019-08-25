@@ -69,4 +69,4 @@ def apply(beginning, num_of_chars, save_to_JS=False):
 
 
 if __name__ == "__main__":
-    print(apply('那长须老者满脸得色，微微一笑', 1000))
+    print(apply('那长须老者满脸得色，微微一笑', 1000, True))
