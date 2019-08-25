@@ -6,8 +6,6 @@
 
 演示站：https://yusanshi.com/Louis_Cha/ ，参考了 [TensorFlow 官方教程](https://www.tensorflow.org/beta/tutorials/text/text_generation) 和 [LeeMeng 博客](https://leemeng.tw/how-to-generate-interesting-text-with-tensorflow2-and-tensorflow-js.html)。
 
-![1566730015119](README.assets/1566730015119.png)
-
 ![1.gif](README.assets/1.gif)
 
 从动图可以看到，温度值较高时（0.8、1.0），生成的文字较随机，当温度值变低时（如 0.01），会导致更不随机，往往表现为文字的重复（原因是此时拥有最大概率的候选词几乎每次都被选到了）。总结之，温度值较高，最终的选词集中在少数几个有较大概率的候选词上；温度值较低，本身概率没那么大的候选词也会容易被选到。
