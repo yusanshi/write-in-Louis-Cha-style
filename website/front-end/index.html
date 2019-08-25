@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>金庸风格补写 Write in Louis Cha's style using Tensorflow 2.0</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="my.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.2.8/dist/tf.min.js"></script>
+    <script src="my.js"></script>
+
+</head>
+
+<body class="bg-light">
+    <div class="container-fluid">
+        <div class="py-5 text-center">
+            <img class="mx-auto mb-4" src="logo.svg" width="256">
+            <h3>金庸风格补写</h3>
+            <p class="p-2">输入开头、要生成的字数及温度，点击提交即可按金庸风格补写开头。初次加载模型可能较慢，请耐心等待。本项目使用 TensorFlow 2.0 训练模型，使用
+                TensorFlow.js 将模型用于此网页，项目地址：
+                <a href="https://github.com/yusanshi/write_in_Louis_Cha_style_using_Tensorflow_2.0">@Github.com</a>（参考了
+                <a href="https://www.tensorflow.org/beta/tutorials/text/text_generation">TensorFlow 官方教程</a> 和 <a
+                    href="https://leemeng.tw/how-to-generate-interesting-text-with-tensorflow2-and-tensorflow-js.html">LeeMeng
+                    博客</a>）。
+            </p>
+        </div>
+
+        <form id="submitForm">
+            <div class="form-group">
+                <label class="p-1">开头</label>
+                <input type="text" class="form-control" id="begining" value="那长须老者满脸得色，微微一笑">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="p-1">字数</label>
+                    <input type="text" class="form-control" id="length" value="200">
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="p-1">温度</label>
+                    <input type="text" class="form-control" id="temperature" value="0.8">
+                    <small class="form-text text-muted">范围为(0,1]，越大的值表示随机性越大，反之亦然。</small>
+                </div>
+            </div>
+            <div id="information" class="alert alert-info" role="alert">
+                模型正在加载中，请稍候……
+            </div>
+            <button id="uniqueButton" type="submit" class="btn btn-primary btn-lg btn-block" disabled>提交</button>
+        </form>
+
+        <div class="card my-4">
+            <div id="showArea" class="card-body">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

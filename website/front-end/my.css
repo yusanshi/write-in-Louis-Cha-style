@@ -1,0 +1,7 @@
+.container-fluid {
+    max-width: 768px;
+}
+
+.card {
+    min-height: 100px;
+}

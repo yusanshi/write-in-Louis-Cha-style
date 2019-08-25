@@ -1,5 +1,9 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+from config import MODEL_PATH, LINE_NUM, BOOK_NUM, LINE_NUM, SEQ_LENGTH, EPOCHS, BATCH_SIZE, EMBEDDING_DIM, RNN_UNITS, LEARNING_RATE, LOG_PATH
+from collections import Counter
+from tensorflow.keras import layers
+from tensorflow import keras
 import tensorflow as tf
 import numpy as np
 import os
@@ -12,11 +16,6 @@ import pickle
 import itertools
 import datetime
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
-
-from tensorflow import keras
-from tensorflow.keras import layers
-from collections import Counter
-from config import MODEL_PATH, DATA_NUM, SEQ_LENGTH, EPOCHS, BATCH_SIZE, EMBEDDING_DIM, RNN_UNITS, LEARNING_RATE, LOG_PATH
 
 
 def build_model(vocab_size, embedding_dim, rnn_units, batch_size):
@@ -50,13 +49,12 @@ def train():
         return s == ''
 
     lines = []
-    for file in os.listdir(path_to_txt):
-        if os.path.splitext(file)[-1] == '.txt':
-            with open(os.path.join(path_to_txt, file), 'r', encoding='utf-8') as f:
-                lines.extend([l.strip() for l in f.readlines() if len(
-                    l.strip()) > 0 and no_invalid_chars(l.strip())])
+    for file in os.listdir(path_to_txt)[:BOOK_NUM]:
+        with open(os.path.join(path_to_txt, file), 'r', encoding='utf-8') as f:
+            lines.extend([l.strip() for l in f.readlines() if len(
+                l.strip()) > 0 and no_invalid_chars(l.strip())])
 
-    lines = lines[:DATA_NUM]
+    lines = lines[:LINE_NUM]
     print('Lines num: %d' % len(lines))
     lines = [' '.join([l for l in list(jieba.cut(l)) if l != ' '])
              for l in lines]
@@ -109,6 +107,8 @@ def train():
     tensorboard_callback = keras.callbacks.TensorBoard(
         log_dir=logdir, histogram_freq=1)
 
+    print(dataset)
+
     model.fit(dataset, epochs=EPOCHS, callbacks=[tensorboard_callback])
 
     def save_model(variables, models):
@@ -134,4 +134,4 @@ def train():
 
 
 if __name__ == '__main__':
-    train(False)
+    train()

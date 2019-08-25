@@ -1,10 +1,12 @@
 import os
 import jieba
 import pickle
+import json
 import tensorflow as tf
+import tensorflowjs as tfjs
 from tensorflow import keras
 from train import build_model
-from config import MODEL_PATH, EMBEDDING_DIM, RNN_UNITS, TEMPERATURE
+from config import MODEL_PATH, EMBEDDING_DIM, RNN_UNITS, TEMPERATURE, JS_PATH
 
 
 def apply(beginning, num_of_chars):
@@ -24,21 +26,32 @@ def apply(beginning, num_of_chars):
                         batch_size=1)
 
     model.load_weights(os.path.join(MODEL_PATH, 'model'))
-    
+
     print('Load model successfully.')
+
+    # for Tensorflowjs
+    data = {
+        'text_to_int': text_to_int,
+        'int_to_text': int_to_text
+    }
+    with open('data.json', 'w', encoding='utf-8') as f:
+        f.write(json.dumps(data))
+        print('Dict written to data.json.')
+
+    tfjs.converters.save_keras_model(model, JS_PATH)
+    print('Model for JS saved to %s.' % JS_PATH)
 
     input_seq_jieba = [l for l in list(jieba.cut(beginning)) if l != ' ']
     input_seq_int = [text_to_int[w]
                      for w in input_seq_jieba if w in text_to_int]
     if len(input_seq_int) == 0:
         input_seq_int = [text_to_int['<br>']]
-
     input_seq = tf.expand_dims(input_seq_int, axis=0)  # Add a dim
 
     text_generated = ''
     model.reset_states()  # Add this because 'stateful=True'
     while len(text_generated) < num_of_chars:
-        predictions = model(input_seq)
+        predictions = model.predict(input_seq)
         predictions = tf.squeeze(predictions, axis=0)
         predictions /= TEMPERATURE
         predicted_id = tf.random.categorical(
