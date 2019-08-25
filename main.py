@@ -24,4 +24,4 @@ def main(beginning, num_of_chars, force_retrain=False):
 
 
 if __name__ == '__main__':
-    main('', 1000)
+    main('那长须老者满脸得色，微微一笑', 1000)
