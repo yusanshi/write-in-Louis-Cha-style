@@ -10,6 +10,8 @@
 
 # 【我是GIF】
 
+# MOVE to python dir
+
 ## 基本原理
 
 ### Python 版
@@ -23,7 +25,7 @@
 
 #### 前端
 
-在`website`文件夹中，分为前端`front-end`和`back-end`后端。前端包含主站 https://yusanshi.com/Louis_Cha/ 的源码，亦包括使用 Tensorflow.js 来生成字符序列的 Javascript 代码。
+在`website`文件夹中，分为前端`front_end`和`back_end`后端。前端包含主站 https://yusanshi.com/Louis_Cha/ 的源码，亦包括使用 Tensorflow.js 来生成字符序列的 Javascript 代码。
 
 #### 后端
 

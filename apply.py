@@ -61,7 +61,7 @@ def apply(beginning, num_of_chars, save_to_JS=False):
         predictions = tf.squeeze(predictions, axis=0)
         predictions /= TEMPERATURE
         predicted_id = tf.random.categorical(
-            predictions, num_samples=1).numpy()[0][0]
+            predictions, num_samples=1).numpy()[-1][0]
         input_seq = tf.expand_dims([predicted_id], 0)  # Add a dim
         text_generated += int_to_text[predicted_id] if int_to_text[predicted_id] != '<br>' else '\n'
 
@@ -69,4 +69,4 @@ def apply(beginning, num_of_chars, save_to_JS=False):
 
 
 if __name__ == "__main__":
-    apply('那长须老者满脸得色，微微一笑', 1000, True)
+    print(apply('那长须老者满脸得色，微微一笑', 1000))

@@ -62,7 +62,8 @@ async function apply(begining, length, temperature) {
             while (text_generated.length < length) {
                 var predictions = model.predict(input_seq);
                 var predictions = predictions.squeeze(0);
-                var predictions = predictions.unstack()[0];
+                var unstacked = predictions.unstack();
+                var predictions = unstacked[unstacked.length - 1];
                 var predictions = predictions.div(tf.scalar(temperature));
                 var predictedID = tf.multinomial(predictions, 1).dataSync()[0];
                 if (predictedID == 0) {
