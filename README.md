@@ -27,9 +27,9 @@ Python 版主要参考了 [TensorFlow 官方教程](https://www.tensorflow.org/b
 
 #### 后端
 
-后端是使用 Node.js 搭建的用于提供中文分词服务的 API（这个分词服务用于对用户输入的开头分词）。核心的分词服务用的是 [NodeJieba](https://www.npmjs.com/package/nodejieba)，HTTPS 服务器用的是 [express](https://www.npmjs.com/package/express)，跨域访问问题用 [cors package](https://www.npmjs.com/package/cors) 解决，免费 HTTPS 证书由 [Let's Encrypt](https://letsencrypt.org/) 签发（之所以要给 API 添加对 HTTPS 的支持，是因为我的主站也是 HTTPS 的，不允许向 HTTP 地址发送 Ajax 请求）。 API 请求地址为 https://jieba.yusanshi.com:8000/ （POST 方法），同时也提供对 GET 请求的处理，直接访问这个地址即可在线体验（或检查该 API 有没有挂掉233），如下图。
+后端是使用 Node.js 搭建的用于提供中文分词服务的 API（这个分词服务用于对用户输入的开头分词）。核心的分词服务用的是 [NodeJieba](https://www.npmjs.com/package/nodejieba)，HTTP 服务器用的是 [express](https://www.npmjs.com/package/express)，跨域访问问题用 [cors package](https://www.npmjs.com/package/cors) 解决，使用 Nginx 将 express 监听的端口（如 8080）转发到 80，免费 HTTPS 证书由 [Let's Encrypt](https://letsencrypt.org/) 签发（之所以要给 API 添加对 HTTPS 的支持，是因为我的主站也是 HTTPS 的，不允许向 HTTP 地址发送 Ajax 请求）。 API 请求地址为 https://jieba.yusanshi.com/ （POST 方法），同时也提供对 GET 请求的处理，直接访问这个地址即可在线体验（或检查该 API 有没有挂掉233），如下图。
 
-![1566731287948](README.assets/1566731287948.png)
+![image-20191110095839531](README.assets/image-20191110095839531.png)
 
 
 
