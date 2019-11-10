@@ -34,7 +34,7 @@ async function apply(begining, length, temperature) {
     document.getElementById("showArea").textContent = "正在生成中，请稍候……";
 
     $.ajax({
-        url: "https://jieba.yusanshi.com:8000/",
+        url: "https://jieba.yusanshi.com/",
         type: "POST",
         data: {
             "sentence": begining
