@@ -37,7 +37,7 @@ Python 版主要参考了 [TensorFlow 官方教程](https://www.tensorflow.org/b
 
 1. 配置 Python 环境，利用 pip 工具安装配置 Tensorflow 2.0（写此 README 时最新版是 TensorFlow 2.0 RC）和其他 Packages；
 2. 调整`config.py`中的参数，运行`main.py`训练并查看训练效果（训练的时候可以使用`tensorboard --logdir log`命令实时查看 loss 的值），之后运行`apply.py`并将`save_to_JS`参数设为`True`来保存模型和字典（tfjs 文件夹和`data.json`），将 tfjs 文件夹和`data.json`一起放入`front_end`，将整个`front_end`的内容放入网站文件夹中；
-3. 服务器端配置好 NPM 和 Node.js 的环境，安装`nodejieba`和`express`包，使用`node app.js`运行分词 API，配置 Nginx 将其转发到 80 端口（配置文件示例：https://gist.github.com/yusanshi/6e041397af2ce86d605e42496082ed46），再利用`certbot`为 Nginx 中的该站点配置 SSL 加密；
+3. 服务器端配置好 NPM 和 Node.js 的环境，安装`nodejieba`和`express`包，使用`node app.js`运行分词 API，配置 Nginx 将其转发到 80 端口（配置文件示例：https://gist.github.com/yusanshi/6e041397af2ce86d605e42496082ed46 ），再利用`certbot`为 Nginx 中的该站点配置 SSL 加密；
 4. 浏览器访问`front_end`中内容即可。
 
 > 也可以利用 [Browserify](http://browserify.org/)，直接使用 Nodejieba 而不再搭建 API。
