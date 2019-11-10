@@ -4,20 +4,14 @@ var bodyParser = require('body-parser')
 var urlencodedParser = bodyParser.urlencoded({
     extended: false
 })
-var https = require('https')
+var http = require('http')
 var app = express()
 const nodejieba = require("nodejieba")
 nodejieba.load()
 
-const port = 8000
+const port = 8081
 const fs = require('fs')
 const html = fs.readFileSync('./get.html', 'utf-8')
-
-const options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/jieba.yusanshi.com/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/jieba.yusanshi.com/cert.pem'),
-    ca: fs.readFileSync('/etc/letsencrypt/live/jieba.yusanshi.com/chain.pem')
-}
 
 app.use(cors())
 
@@ -31,7 +25,7 @@ app.post('/', urlencodedParser, function (req, res) {
     res.json(result)
 })
 
-var server = https.createServer(options, app)
+var server = http.createServer(app)
 
 server.listen(port, function () {
     console.log('CORS-enabled web server listening on port ' + port)
