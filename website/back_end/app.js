@@ -15,11 +15,11 @@ const html = fs.readFileSync('./get.html', 'utf-8')
 
 app.use(cors())
 
-app.get('/api/jieba', function (req, res) {
+app.get('/', function (req, res) {
     res.send(html)
 })
 
-app.post('/api/jieba', urlencodedParser, function (req, res) {
+app.post('/', urlencodedParser, function (req, res) {
     var result = nodejieba.cut(req.body.sentence, true)
     console.log(result)
     res.json(result)
